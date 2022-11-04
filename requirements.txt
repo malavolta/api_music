@@ -1,0 +1,6 @@
+django
+Markdown
+django-filter
+djangorestframework
+django-ckeditor
+Pillow
