@@ -4,3 +4,4 @@
 *.pyc
 .envs
 media/
+.idea
