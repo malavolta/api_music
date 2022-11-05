@@ -7,10 +7,10 @@ from genres.models import Genres
 
 class Songs(models.Model):
     name = models.CharField(max_length=255)
-    artis = models.ForeignKey(Artis, related_name='artis', on_delete=models.CASCADE)
-    genres = models.ManyToManyField(Genres, related_name='genres')
+    genres = models.ManyToManyField(Genres)
+    artis = models.ForeignKey(Artis, on_delete=models.CASCADE)
     kind = models.CharField(max_length=255)
-    release_date = models.DateTimeField(auto_now=False)
+    release_date = models.DateTimeField(auto_now_add=True)
     url = models.URLField(null=True)
 
     def __str__(self):

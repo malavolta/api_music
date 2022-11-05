@@ -15,7 +15,5 @@ class ArtisModelSerializer(serializers.ModelSerializer):
             'pk',
             'name',
             'url',
-            'artist_id',
             'work_url_100',
-
         )

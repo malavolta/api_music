@@ -22,3 +22,41 @@ Then simply apply the migrations:
 You can now run the development server:
 
     $ python manage.py runserver
+
+# API DOCUMENTACION
+### LOGIN
+(POST) http://127.0.0.1:8000/users/login/
+```json
+{
+    "email": "malavolta@gmail.com",
+    "password": "PRUEBA4321"
+}
+```
+
+### ADD 
+
+(POST) http://127.0.0.1:8000/songs/ 
+
+Headers
+``` cmd
+Authorization: Token {{token generated at login}}
+
+```
+
+``` json
+{
+    "name": "Glitch",
+    "kind": "songs",
+    "release_date": "2022-10-21T16:05:00Z",
+    "url": "https://music.apple.com/us/album/glitch/1650841512?i=1650841753",
+    "artis_id": 1,
+    "genres":[{"id":1},{"id":2}]
+}
+```
+
+### List All
+
+
+http://localhost:8000/songs
+
+

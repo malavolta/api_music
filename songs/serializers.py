@@ -7,12 +7,13 @@ from artis.serializers import ArtisModelSerializer
 
 # Model
 from songs.models import Songs
+from genres.models import Genres
 
 
 class SongsModelSerializer(serializers.ModelSerializer):
     """Songs Model Serializer"""
-    genres = GenresModelSerializer(many=True)
-    artis = ArtisModelSerializer()
+    genres = GenresModelSerializer(many=True, read_only=False)
+    artis = ArtisModelSerializer(read_only=False)
 
     class Meta:
         """Meta class."""
@@ -31,12 +32,19 @@ class SongsModelSerializer(serializers.ModelSerializer):
 
 class SongsSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=55)
-    # artis = models.ForeignKey(Artis, on_delete=models.CASCADE)
-    # genres = models.ManyToManyField(Genres, related_name='songs_genres')
+    artis_id = serializers.IntegerField()
+    genres = serializers.ListField()
     kind = serializers.CharField(max_length=255)
     release_date = serializers.DateTimeField()
     url = serializers.URLField()
 
     def create(self, data):
-        exp = Songs.objects.create(**data)
-        return exp
+        song = Songs.objects.create(name=data['name'], artis_id=data['artis_id'], kind=data['kind'],
+                                    release_date=data['release_date'], url=data['url'])
+
+        for genre in data["genres"]:
+            print(str(genre["id"]))
+            genre_obj = Genres.objects.get(id=genre["id"])
+            song.genres.add(genre_obj)
+
+        return song
